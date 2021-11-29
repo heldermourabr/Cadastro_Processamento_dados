@@ -58,13 +58,11 @@ class Interface_base:
             print(f"Desconection error {str(e)}")
     
     def action(self, query):
-        """[summary]
+        """ Establish connection, execute "query" and close connection.
 
         Args:
-            query ([type]): [description]
-
-        Returns:
-            [type]: [description]
+            query (string): Receive "query" from function.
+        
         """
         try:
             con, cursor = self.connect()

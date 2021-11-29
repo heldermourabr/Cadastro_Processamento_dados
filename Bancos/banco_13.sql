@@ -61,7 +61,7 @@ DELIMITER //
     FOR EACH ROW
 		BEGIN
 			CALL log_entrada_insert (NEW.data_entrada, NEW.valor);
-		END
+		END;
 		//
 DELIMITER ;
 
@@ -71,7 +71,7 @@ DELIMITER //
     FOR EACH ROW
 		BEGIN
 			CALL log_entrada_update (OLD.data_entrada, OLD.valor, NEW.data_entrada, NEW.valor);
-		END
+		END;
 		//
 DELIMITER ;
 
@@ -81,7 +81,7 @@ DELIMITER //
     FOR EACH ROW
 		BEGIN
 			CALL log_entrada_delete (OLD.data_entrada, OLD.valor);
-		END
+		END;
 		//
 DELIMITER ;
 
@@ -133,7 +133,7 @@ DELIMITER //
     FOR EACH ROW
 		BEGIN
 			CALL log_informacoes_update (OLD.data_inicio, OLD.data_fim, OLD.media, OLD.mediana, OLD.moda, OLD.desvio, OLD.maximo, OLD.minimo, NEW.data_inicio, NEW.data_fim, NEW.media, NEW.mediana, NEW.moda, NEW.desvio, NEW.maximo, NEW.minimo);
-		END
+		END;
 		//
 DELIMITER ;
 
@@ -143,8 +143,9 @@ DELIMITER //
     FOR EACH ROW
 		BEGIN
 			CALL log_informacoes_delete (OLD.data_inicio, OLD.data_fim, OLD.media, OLD.mediana, OLD.moda, OLD.desvio, OLD.maximo, OLD.minimo);
-		END
+		END;
 		//
+DELIMITER ;
 
 
 
