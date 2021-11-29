@@ -1,13 +1,14 @@
-from conector import Interface_base
+from modules.conector import Interface_base
 import pandas as pd
 import numpy as np
 from pandas.core.frame import DataFrame
+import statistics
 
 class Functions:
-    try:
+    try:        
         def import_CSV():
             try:
-                banco_13 = Interface_base()
+                banco_13 = Interface_base("user", "user", "127.0.0.1", "banco_13")                
                 # Importando os arquivos csv para o dataframe
                 df_dados1 = pd.read_csv('dados1.csv', sep = ',', usecols = ['data', 'valor'])
                 df_dados2 = pd.read_csv('dados2.csv', sep = ',', usecols = ['data', 'valor'])
@@ -19,35 +20,44 @@ class Functions:
                 dados = np.array(df_dados) # Convertendo o dataframe para array
                 lista =[]
                                 
-                for dado in dados:
-                    dado = tuple(dado)
+                for dado in dados:                    
                     data = str(dado[0])            
                     values = (data, dado[1])
                     query = f"insert into entrada (data_entrada, valor) values {values}"
                     banco_13.action(query)
             except Exception as e:
-                print("Error {str(e)}")
+                print(f"Error {str(e)}")
         
 
-        def bloc_select(): # TODO arrumar a data
+        def bloc_select():
             try:
-                for i in range(0, 2000, 50):
-                    banco_13 = Interface_base()
+                banco_13 = Interface_base("user", "user", "127.0.0.1", "banco_13")
+                for i in range(0, 9000000000, 50):                    
                     query = f"select data_entrada, valor from entrada where id > {i} limit 50"
-                    entrada = banco_13.action(query)
-                    lista = []
-                    for item in entrada:    
-                        lista.append(item[1])# Organizando                                             min(lista), max(lista)
-                    query2 = "insert into informacoes (media, mediana, moda, desvio, padrao, maior, menor, data_inicio, data_fim) values (mean(lista), median(dados), moda(dados), descvio(dados.....)"
-                    
-                    for item in entrada:
-                        data = str(item[0])          
-                        lista.append(data)
-                        
-                    print(max(lista))
-                    print(min(lista))
-
+                    entrada = banco_13.action(query) 
+                    if entrada == []:
+                        break
+                    else:
+                        valores, data = [], []                    
+                        for item in entrada:
+                            data.append(item[0]) 
+                            valores.append(float(item[1]))
+                        valores = np.array(valores)
+                        values = (str(min(data)), str(max(data)), valores.mean(), np.median(valores), statistics.mode(valores), statistics.stdev(valores), valores.max(), valores.min())
+                        query = f"insert into informacoes (data_inicio, data_fim, media, mediana, moda, desvio, maximo, minimo) values {values}"
+                        banco_13.action(query)
+                   
             except Exception as e:
-                print("Error {str(e)}")
+                print(f"Error {str(e)}")
+
+
+
+        def select():
+            banco_13 = Interface_base("user", "user", "127.0.0.1", "banco_13")
+            query = f"select data_entrada, valor from entrada where id > 50 limit 50"
+            selecao = banco_13.action(query)
+            print(selecao)
+
+
     except Exception as e:
         print(f"Error {str(e)}")
