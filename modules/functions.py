@@ -43,22 +43,14 @@ class Functions:
                             data.append(item[0]) 
                             valores.append(float(item[1]))
                         valores = np.array(valores)
-                        values = (str(min(data)), str(max(data)), valores.mean(), np.median(valores), statistics.mode(valores), statistics.stdev(valores), valores.max(), valores.min())
+                        values = (str(np.min(data)), str(np.max(data)), valores.mean(), np.median(valores), statistics.mode(valores), statistics.stdev(valores), valores.max(), valores.min())
                         query = f"insert into informacoes (data_inicio, data_fim, media, mediana, moda, desvio, maximo, minimo) values {values}"
                         banco_13.action(query)
                    
             except Exception as e:
                 print(f"Error {str(e)}")
 
-
-
-        def select():
-            banco_13 = Interface_base("user", "user", "127.0.0.1", "banco_13")
-            query = f"select data_entrada, valor from entrada where id > 50 limit 50"
-            selecao = banco_13.action(query)
-            print(selecao)
-
-
+        
     except Exception as e:
         print(f"Error {str(e)}")
 
