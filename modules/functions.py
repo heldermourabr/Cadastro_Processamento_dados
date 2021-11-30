@@ -11,6 +11,7 @@ class Functions:
     """Metodos com o processamento dos dados para resolução das questões
     
     """
+    
     try:        
         def import_CSV():
             try:
@@ -24,13 +25,14 @@ class Functions:
                 df_dados = df_dados.sort_values(by=['data']) # Organizando os dados por data
                 df_dados = df_dados.dropna() # Dropando as linhas com campos de data ou valor vazios
                 dados = np.array(df_dados) # Convertendo o dataframe para array
-                lista =[]
-                                
+                lista =[]                                
                 for dado in dados:                    
                     data = str(dado[0]) # Convertendo a data para string            
                     values = (data, dado[1]) # montando a tupla com data e valor para inserir na query
-                    query = f"insert into entrada (data_entrada, valor) values {values}"
-                    banco_13.action(query) # abre a conexao, executa a query e fecha a conexao
+                    lista.append(values)
+                values = str(lista)[1:-1]
+                query = f"insert into entrada (data_entrada, valor) values {values}"
+                banco_13.action(query) # abre a conexao, executa a query e fecha a conexao
             except Exception as e:
                 print(f"Error {str(e)}")
         

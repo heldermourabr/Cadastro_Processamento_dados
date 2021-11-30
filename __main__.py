@@ -1,6 +1,5 @@
 from modules.functions import Functions
 
-
 if __name__ == "__main__":
     try:
         while True:
@@ -28,6 +27,7 @@ if __name__ == "__main__":
             
             elif escolha == "0":
                 break
+
             else:
                 print("Opção inválida tente novamente.\n")
 
