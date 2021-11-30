@@ -6,13 +6,11 @@ if __name__ == "__main__":
             print("Escolha a opção desejada.", "[1] - Inserir arquivos em CSV", "[2] - Fazer Análise dos blocos de 50.", "[3] - Consultar tabela de entrada", "[4] - Consultar tabela de médias", "[5] - Consultar tabela de log", "[0] - Sair", sep = "\n")
             escolha = input("Digite a opção: ")
 
-            if escolha == "1":
-                print("Inserção iniciada...")
+            if escolha == "1":                
                 Functions.import_CSV()
                 print("inserção finalizada")
             
-            elif escolha == "2":
-                print("Análise iniciada...")
+            elif escolha == "2":                
                 Functions.bloc_select()
                 print("Análise finalizada")
 

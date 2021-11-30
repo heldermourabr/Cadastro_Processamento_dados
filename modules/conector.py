@@ -73,23 +73,3 @@ class Interface_base:
         finally:
             self.desconnect(con, cursor)
 
-
-    def action2(self, lista):
-        """ Establish connection, execute "query" and close connection.
-
-        Args:
-            query (string): Receive "query" from function.
-        
-        """
-        try:
-            con, cursor = self.connect()
-            query = "insert into entrada (data_entrada, valor) values (%s, %s, %s)"
-            dados = lista
-            print(dados)
-            cursor.executemany(query, dados)
-            return cursor.fetchall()
-        except Exception as e:
-            print(f"Insert Error {str(e)}")
-        finally:
-            self.desconnect(con, cursor)
-
